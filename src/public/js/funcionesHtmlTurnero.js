@@ -7,6 +7,9 @@ turnoModal.addEventListener('show.bs.modal', function (event) {
   let id = button.getAttribute('data-bs-id')
   let inputId = turnoModal.querySelector('#id_turno_modal')
   inputId.value = id
+  // modifica el onclick del boton de atender y ponele esta informacion concatenandole el id onclick="peticionAjax('/agenda/entaller?id={{this.id_agenda}}','GET','true','true')"
+  let botonAtender = turnoModal.querySelector('.llamarnumero')
+  botonAtender.setAttribute('onclick', `peticionAjax('/turnero/mostrarPantalla?numero=${numeroDeTicket}&puesto="PUESTO 1"','GET','false','false')`)
   // If necessary, you could initiate an AJAX request here
   // and then do the updating in a callback.
   //
@@ -15,11 +18,3 @@ turnoModal.addEventListener('show.bs.modal', function (event) {
   inputTextNumero.value = numeroDeTicket
 })
 
-function llamarNumero() {
-  //obtene el nombre del puesto
-  let puesto = 1;
-  //obtene el id del turno
-  alert("Llamando número");
-  // Emite un evento personalizado llamado "llamarNumero" al servidor
-  socket.emit("llamarNumero", "Datos que deseas enviar al servidor");
-}

@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import { isUser } from "../middleware/Helper.js";
 import { __dirname, con, ejecutarConsulta } from "../utils.js";
+import { socketServer } from "../app.js"; // Importa el objeto io desde app.js
 
 export const turneroHtmlRouter = express.Router();
 turneroHtmlRouter.get("/", isUser,async (req, res) => {
@@ -23,3 +24,17 @@ turneroHtmlRouter.get("/", isUser,async (req, res) => {
         }
 
 });
+
+turneroHtmlRouter.get("/mostrarPantalla",async (req, res) => {
+    const numero = req.query.numero;
+    const puesto = req.query.puesto;
+    
+    const data = {
+        numero: numero, // Número de turno
+        puesto: puesto, // Puesto
+      };
+    socketServer.emit('muestraTurnos', { data});
+    return res.status(200).json({msg:"ok"});
+});
+
+    

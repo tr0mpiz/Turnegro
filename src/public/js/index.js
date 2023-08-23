@@ -1,9 +1,10 @@
 //FRONT
 const socket = io();
 
+// ...
 socket.on("muestraTurnos", (data) => {
-  let turno = data;
-  console.log(turno);
+  let turno = data.data;
+
   if (window.location.href.includes("consulta")) {
     // Obtener la referencia al elemento HTML con el ID "pantallaturno"
     let lista = document.getElementById("pantallaturno");
@@ -13,14 +14,14 @@ socket.on("muestraTurnos", (data) => {
         <td>
             <div class="d-flex px-2 py-1">
             <div class="d-flex flex-column justify-content-center">
-                <h2>${turno[0].numeroticket}</h2>
+                <h2>${turno.numero}</h2>
             </div>
             </div>
         </td>
         <td>
             <div class="d-flex px-2 py-1">
             <div class="d-flex flex-column justify-content-center">
-                <h2>${turno[0].puesto_id}</h2>
+                <h2>${turno.puesto}</h2>
             </div>
             </div>
         </td>
@@ -29,6 +30,8 @@ socket.on("muestraTurnos", (data) => {
     ring("sonido.mp3");
   }
 });
+// ...
+
   
 
 socket.on("agregarFila", (data) => {
@@ -57,9 +60,9 @@ socket.on("agregarFila", (data) => {
     }
 
     // Agrega contenido HTML al principio de la tabla
-    tabla.insertAdjacentHTML("afterbegin", `<tr data-bs-id="${turno[0].id}" data-bs-numero="${turno[0].primera_letra}-${turno[0].ultima_letra}${turno[0].id}" data-bs-toggle="modal" data-bs-target="#turnoModal" >
+    tabla.insertAdjacentHTML("afterbegin", `<tr data-bs-id="${turno[0].id}" data-bs-numero="${turno[0].primera_letra}${turno[0].ultima_letra}-${turno[0].id}" data-bs-toggle="modal" data-bs-target="#turnoModal" >
         <td>
-            <h6 class="mb-0 text-sm">${turno[0].primera_letra}-${turno[0].ultima_letra}${turno[0].id}</h6>
+            <h6 class="mb-0 text-sm">${turno[0].primera_letra}${turno[0].ultima_letra}-${turno[0].id}</h6>
             <p class="text-xs text-secondary mb-0">${turno[0].nombretramite}</p>
         </td>
         <td>
